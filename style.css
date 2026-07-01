@@ -1,0 +1,517 @@
+/* =========================
+   THEMES
+========================= */
+
+:root {
+  --bg-image: url("Lightmode Background.jpg");
+
+  --header: #FFFFFF;
+  --bot: #E2E8F0;
+  --user: #7C3AED;
+  --accent: #7C3AED;
+  --text: #1E293B;
+  --border: #CBD5E1;
+}
+
+body.dark {
+  --bg-image: url("Darkmode Background.jpg");
+
+  --header: #111827;
+  --bot: #1E293B;
+  --user: #7C3AED;
+  --accent: #8B5CF6;
+  --text: #F8FAFC;
+  --border: #334155;
+}
+
+/* =========================
+   BASE
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  color: var(--text);
+
+  margin: 0;
+  height: 100vh;
+
+  display: flex;
+  overflow: hidden;
+}
+
+/* BACKGROUND + OVERLAY */
+.app::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
+    var(--bg-image);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: calc(50% + 130px) center;
+  background-attachment: fixed;
+
+  transition: background-position 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+body.dark .app::before {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+    var(--bg-image);
+}
+
+/* =========================
+   APP LAYOUT
+========================= */
+
+.app {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+  width: 260px;
+  height: 100vh;
+
+  background: var(--header);
+  border-right: 1px solid var(--border);
+
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+}
+
+.sidebar h3 {
+  margin-bottom: 12px;
+}
+
+.chat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  overflow-y: auto;
+  flex: 1;
+}
+
+.chat-item {
+  padding: 12px;
+  border-radius: 10px;
+
+  background: var(--bot);
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.chat-item:hover {
+  transform: translateX(3px);
+}
+
+.chat-item.active {
+  background: var(--accent);
+  color: white;
+}
+
+/* =========================
+   MAIN CONTENT
+========================= */
+
+.main-content {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  min-width: 0;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+  width: 100%;
+
+  background: var(--header);
+  border-bottom: 1px solid var(--border);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 15px 20px;
+}
+
+/* BRAND */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+}
+
+/* ICON BUTTONS */
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn:hover {
+  background: var(--bot);
+}
+
+/* =========================
+   CHAT
+========================= */
+
+.chat-container {
+  padding-top: 15px;
+  flex: 1;
+
+  width: 100%;
+  max-width: none;
+
+  padding: 15px 0 0 0;
+
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  padding-bottom: 25px;
+}
+
+.chat-container .message {
+  margin: 0 20px;
+}
+
+.message {
+  max-width: 75%;
+  padding: 12px 14px;
+  border-radius: 14px;
+
+  white-space: pre-wrap;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.bot {
+  background: var(--bot);
+  align-self: flex-start;
+}
+
+.user {
+  background: var(--user);
+  color: white;
+  align-self: flex-end;
+}
+
+/* =========================
+   INPUT
+========================= */
+
+.input-wrapper {
+  width: 90%;
+  max-width: 850px;
+  margin: 0 auto 16px auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.prompt-controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.prompt-controls select {
+  flex: 1;
+  min-width: 150px;
+
+  padding: 10px 14px;
+
+  border: 1px solid var(--border);
+  border-radius: 12px;
+
+  background: var(--header);
+  color: var(--text);
+
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.input-area {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin: 0;
+
+  padding: 10px;
+
+  background: var(--header);
+
+  border: 1px solid var(--border);
+  border-radius: 999px;
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.input-area input {
+  flex: 1;
+
+  padding: 14px 18px;
+
+  border: none;
+  background: transparent;
+
+  color: var(--text);
+  font-size: 15px;
+
+  outline: none;
+}
+
+.input-area input::placeholder {
+  color: #94A3B8;
+}
+
+.input-area button {
+  padding: 12px 22px;
+
+  border: none;
+  border-radius: 999px;
+
+  background: var(--accent);
+  color: white;
+
+  cursor: pointer;
+
+  font-weight: 600;
+
+  transition: 0.2s;
+}
+
+.input-area button:hover {
+  transform: scale(1.05);
+}
+
+.text-icon-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 12px;
+
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  transition: 0.2s;
+}
+
+.text-icon-btn:hover {
+  background: var(--bot);
+}
+
+.text-icon-btn svg {
+  flex-shrink: 0;
+}
+
+/* danger style for clear all */
+.sidebar-btn {
+  width: 100%;
+  padding: 12px 14px;
+
+  border-radius: 12px;
+
+  border: 1px solid var(--border);
+  background: transparent;
+
+  color: var(--text);
+
+  cursor: pointer;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  text-align: left;
+
+  transition: 0.2s;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.sidebar-btn:hover {
+  background: var(--bot);
+  transform: translateX(2px);
+}
+
+.sidebar-btn.danger {
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #ef4444;
+}
+
+.sidebar-btn.danger:hover {
+  background: rgba(239, 68, 68, 0.08);
+}
+
+/* =========================
+   COLLAPSIBLE SIDEBAR
+========================= */
+
+.sidebar {
+  transition: width 0.3s ease, padding 0.3s ease;
+}
+
+.app.sidebar-collapsed .sidebar {
+  width: 0;
+  padding: 0;
+  overflow: hidden;
+  border-right: none;
+}
+
+.app.sidebar-collapsed .main-content {
+  width: 100%;
+}
+
+/* recenter background when sidebar is collapsed */
+.app.sidebar-collapsed::before {
+  background-position: center center;
+}
+
+/* ==================
+   PROMPT CONTROLS 
+===================== */
+
+.prompt-controls {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+/* each dropdown group */
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 160px;
+}
+
+/* custom select */
+.control-group select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  padding: 12px 14px;
+  border-radius: 12px;
+
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.6);
+
+  color: var(--text);
+  font-size: 14px;
+
+  cursor: pointer;
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+
+  transition: 0.2s ease;
+}
+
+/* hover effect */
+.control-group select:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+}
+
+/* focus */
+.control-group select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* dark mode */
+body.dark .control-group select {
+  background: rgba(17, 24, 39, 0.7);
+  color: var(--text);
+}
+
+/* optional: small dropdown arrow */
+.control-group {
+  position: relative;
+}
+
+.control-group::after {
+  content: "▾";
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  pointer-events: none;
+  font-size: 12px;
+  opacity: 0.6;
+}
